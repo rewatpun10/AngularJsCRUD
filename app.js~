@@ -1,0 +1,22 @@
+var app = angular.module('app',['ng-route']);
+
+app.config(function,($routeprovider){
+	$routepprovider
+	//homepage
+	.when('/',{
+		templateUrl : 'pages/homepage.html',
+		controller : 'homepage'
+	});
+
+	// aboutpage
+	.when('/about',{
+	templateUrl : 'pages/about.html',
+	controller : 'About'
+	});
+
+	//datepage
+	.when('/date',{
+	templateUrl : 'pages/date.html',
+	controller : 'Date'
+	});	
+});

@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+    <title>Login Page</title>
+    <style>
+
+        @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+        hr {
+            height: 4px;
+            margin-left: 15px;
+            margin-bottom:-3px;
+        }
+        .hr-warning{
+            background-image: -webkit-linear-gradient(left, rgba(210,105,30,.8), rgba(210,105,30,.6), rgba(0,0,0,0));
+        }
+        .hr-success{
+            background-image: -webkit-linear-gradient(left, rgba(15,157,88,.8), rgba(15, 157, 88,.6), rgba(0,0,0,0));
+        }
+        .hr-primary{
+            background-image: -webkit-linear-gradient(left, rgba(66,133,244,.8), rgba(66, 133, 244,.6), rgba(0,0,0,0));
+        }
+        .hr-danger{
+            background-image: -webkit-linear-gradient(left, rgba(244,67,54,.8), rgba(244,67,54,.6), rgba(0,0,0,0));
+        }
+        .breadcrumb {
+            background: rgba(245, 245, 245, 0);
+            border: 0px solid rgba(245, 245, 245, 1);
+            border-radius: 25px;
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+<!--<div ng-controller="ListController as ListCtrl">-->
+<!--<table class="table table-bordered">-->
+<!--<tr>-->
+<!--<th>S.No</th>-->
+<!--<th>Name</th>-->
+<!--<th>Position</th>-->
+<!--<th>Speciality</th>-->
+<!--<th>Edit</th>-->
+<!--</tr>-->
+<!--<tr ng-repeat="details in ListCtrl.persons">-->
+<!--<td>{{$index + 1}}</td>-->
+<!--<td>{{details.name}}</td>-->
+<!--<td>{{details.position}}</td>-->
+<!--<td>{{details.speciality}}</td>-->
+<!--<td><a href="#">Edit</a><a href="#">Del</a> </td>-->
+<!--</tr>-->
+<!--</table>-->
+<!--</div>-->
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+
+<div class="container"  ng-controller="ListController as ListCtrl">
+    <!-- Modal -->
+    <div class="modal fade" id="addProductDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Add New Crew Member</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" name="modalForm">
+                        <div class="form-group">
+                            <label for="code" class="col-sm-4 control-label">Code</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" name="code" id="code" placeholder="Crew Code" ng-model="ListCtrl.code" required>
+                                <span ng-show="modalForm.code.$error.required">Code is required.</span>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="col-sm-4 control-label">Name</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="name" placeholder="Crew Name" ng-model="ListCtrl.name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="position" class="col-sm-4 control-label">Position</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="position" placeholder="Position" ng-model="ListCtrl.position">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="special" class="col-sm-4 control-label">Speciality</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="special" placeholder="Speciality" ng-model="ListCtrl.power">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button ng-show="showSave" type="button" class="btn btn-primary" ng-click="ListCtrl.save()" data-dismiss="modal">Save changes</button>
+                    <button ng-show="showUpdate" type="button" class="btn btn-primary" ng-click="ListCtrl.update()" data-dismiss="modal"> Update </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+
+            <div class="panel panel-default panel-table">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col col-xs-6">
+                            <h3 class="panel-title">Panel Heading</h3>
+                        </div>
+                        <div class="col col-xs-6 text-right">
+                            <!--<button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>-->
+                            <button class="btn" ng-click="ListCtrl.add()" data-toggle="modal" data-target="#addProductDialog">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                add
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                <input class="form-control" type="text" ng-model="searchName" placeholder="Filter">
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-list">
+                        <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Speciality</th>
+                            <th>Edit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="details in ListCtrl.persons | filter : searchName">
+                            <td>{{details.code}}</td>
+                            <td>{{details.name}}</td>
+                            <td>{{details.position}}</td>
+                            <td>{{details.speciality}}</td>
+                            <td align="center">
+                                <!--<a class="btn btn-default"><em class="fa fa-pencil"></em></a>-->
+                                <button class="btn" ng-click="ListCtrl.edit(details.code)" data-toggle="modal" data-target="#addProductDialog">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                    edit
+                                </button>
+                                <!--<a href="#" ng-click="ListCtrl.remove(details.code)" class="btn btn-danger"><em class="fa fa-trash"></em></a>-->
+                                <button class="btn" ng-click="ListCtrl.remove(details.code)">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                    delete
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--<div class="panel-footer">-->
+                <!--<div class="row">-->
+                <!--<div class="col col-xs-4">Page 1 of 5-->
+                <!--</div>-->
+                <!--<div class="col col-xs-8">-->
+                <!--<ul class="pagination hidden-xs pull-right">-->
+                <!--<li><a href="#">1</a></li>-->
+                <!--<li><a href="#">2</a></li>-->
+                <!--<li><a href="#">3</a></li>-->
+                <!--<li><a href="#">4</a></li>-->
+                <!--<li><a href="#">5</a></li>-->
+                <!--</ul>-->
+                <!--<ul class="pagination visible-xs pull-right">-->
+                <!--<li><a href="#">«</a></li>-->
+                <!--<li><a href="#">»</a></li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

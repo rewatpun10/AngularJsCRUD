@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+
+
+    <style>
+        /*.row1{*/
+            /*text-align: center;*/
+            /*background-color: greenyellow;*/
+            /*font-family: "Georgia", serif , sans-serif;*/
+            /*font-size: 30px;*/
+            /*height: 200px;*/
+        /*}*/
+
+        /* =====Login=====*/
+        body[role="login"] {
+            font-family: 'Roboto', sans-serif;
+            background: #045404;
+            background-size: cover;
+            color: #EFEFEF
+        }
+        [role="login"] .container {
+            margin-top: 100px
+        }
+        [role="login"] .btn-success {
+            background: #76B831;
+            border: 1px solid #679F2C;
+            float: right
+        }
+        [role="login"] label {
+            font-weight: normal;
+            color: #FFF
+        }
+        .panel-heading {
+            padding: 5px 15px;
+        }
+        .form-inline {
+            margin: 5px
+        }
+        .panel-footer {
+            padding: 1px 15px;
+            color: #A0A0A0;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #FFF, rgba(0, 0, 0, 0));
+            margin: 5px
+        }
+        .profile-img {
+            margin: 0 auto 10px;
+            display: block;
+        }
+        .panel-default {
+            opacity: .9;
+            -webkit-box-shadow: 0px 7px 24px 1px rgba(0,0,0,0.45);
+            -moz-box-shadow: 0px 7px 24px 1px rgba(0,0,0,0.45);
+            box-shadow: 0px 7px 24px 1px rgba(0,0,0,0.45);
+            background: transparent url('http://3rwebtech.com/bg-white.png') repeat scroll 0% 0%;
+        }
+    </style>
+</head>
+<body ng-app="app">
+<!--<a href="#/homepage"><button class="btn btn-danger"> Homepage </button></a>-->
+<!--<a href="#/about"><button class="btn btn-success">About</button></a>-->
+<!--<a href="#/date"><button class="btn btn-warning">Date</button></a><br/>-->
+<!--AABRA KA DABRA :-->
+
+
+<!--<h2>Angular js form validation Example</h2>-->
+<!--<form ng-controller="validationCtrl" name="sampleForm" novalidate ng-show="showTheForm" ng-submit="processForm()">-->
+    <!--<label>Username:</label>-->
+    <!--<input type="text" class="form-control" name="username" ng-model="username" required style="max-width: 150px">-->
+    <!--<span style="color: red" ng-show="sampleForm.username.$error.required">Username is required.</span>-->
+    <!--</br><label>Email :</label>-->
+    <!--<input type="email" class="form-control" name="email" ng-model="email" required style="max-width: 150px">-->
+    <!--<span style="color: red" ng-show="sampleForm.email.$error.required">Email is required.</span>-->
+    <!--<span style="color: red" ng-show="sampleForm.email.$error.email">Invalid Email.</span>-->
+    <!--<button class="btn-link" ng-click="reset()">Reset</button>-->
+    <!--<input type="submit" class="btn btn-primary" ng-disabled="sampleForm.$invalid" ng-click="checkData()">-->
+<!--</form>-->
+
+
+<!-- this is another line -->
+<div class="container" style="margin-top:70px" ng-controller="validationCtrl as ctrl" ng-show="showTheForm">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+            <div class="panel panel-default">
+
+                <div class="panel-body">
+                    <form role="form" ng-submit="ctrl.checkData()"  name="myForm" >
+                        <fieldset>
+                            <div class="row">
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-10  col-md-offset-1 ">
+                                    <div class="form-group">
+                                        <label>Username:</label>
+                                        <div class="input-group"> <span class="input-group-addon"> <i class="glyphicon glyphicon-user"></i> </span>
+                                            <input class="form-control" ng-model="ctrl.user.username" placeholder="Username" name="username" type="text" autofocus required/>
+                                        </div>
+                                        <b><span style="color:red;" ng-show="myForm.username.$error.required">Username is required</span></b>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password:</label>
+                                        <div class="input-group"> <span class="input-group-addon"> <i class="glyphicon glyphicon-lock"></i> </span>
+                                            <input class="form-control" ng-model="ctrl.user.password" placeholder="Password" name="password" type="password" value="" required ng-minlength="5"/>
+                                        </div>
+                                        <b><span style="color:red;" ng-show="myForm.password.$error.minlength">Password length must be greater or equal to 5.</span></b>
+                                        <b><span style="color:red;" ng-show="myForm.password.$error.required">Password is required</span></b>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="submit" ng-disabled="myForm.$invalid" class="btn btn-success" value="Log In"/>
+                                    </div>
+                                    <a ng-click="ctrl.signUpForm()">SignUp</a>
+                                  </div>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- this is log in -->
+<div class="container" ng-show="hideTheForm" ng-controller="LogoutController as Lctrl">
+    <div class="row">
+        <hr class="hr-primary" />
+        <ol class="breadcrumb bread-primary ">
+            <!--<button href="#" class="btn btn-primary"><i class="fa fa-newspaper-o"></i> Home</button>-->
+            <li><a href="#/homepage">Home</a></li>
+            <li><a href="#/about">About Us</a></li>
+            <li><a href="#/date">Date</a></li>
+            <li><a href="#/persondetails">GetUserList</a></li>
+
+            <!--<li><a ng-click="LogoutCtrl.logout">Logout</a></li>-->
+            <li><button class="btn btn-warning" ng-click="Lctrl.logoutcheck()">Logout</button></li>
+        </ol>
+    </div>
+
+</div>
+<!--<div class="span3" ng-show="signUpForm" ng-controller="LoginController as login">-->
+    <div class="container" ng-show="signUpForm" ng-controller="LoginController as login">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h5 class="text-center">
+                            SIGN UP</h5>
+                        <form class="form form-signup" role="form">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <input type="text" class="form-control" placeholder="Username" ng-model="login.username" />
+                                </div>
+                            </div>
+                            <!--<div class="form-group">-->
+                                <!--<div class="input-group">-->
+                            <!--<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>-->
+                            <!--</span>-->
+                                    <!--<input type="text" class="form-control" placeholder="Email Address" />-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    <input type="password" class="form-control" placeholder="Password" ng-model="login.password"/>
+                                </div>
+                            </div>
+                    </div>
+                    <button  type="button" class="btn btn-primary" ng-click="login.save()" >Submit</button>
+                    <!--<a ng-clickclass="btn btn-sm btn-primary btn-block" role="button">SUBMIT</a> </form>-->
+                    <a ng-click="login.loginUpForm()">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- this is log in -->
+
+<div class="row1" ng-show="mainView">
+    <div ng-view>
+
+    </div>
+</div>
+
+
+
+<!-- this is another line -->
+
+
+
+<!--<h2>Practise in Routing</h2>-->
+<!--Click on either <a href="#/first">First</a> or click on <a href="#/second">Second</a>-->
+
+
+<script src="bootstrap/jquery.min.js"></script>
+<script src="bootstrap/bootstrap.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+
+<script src="app.js"></script>
+<script src="js/controllers/controller.js"></script>
+<script src="js/script.js"></script>
+<script src="services/signUp.js"></script>
+<script src="services/crudService.js"></script>
+</body>
+</html>
